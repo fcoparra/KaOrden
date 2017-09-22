@@ -14,44 +14,15 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="nombre" >Nombre</label>
+				<label class="control-label col-sm-2" for="nombre" >Nombre o Razón social</label>
 				<div class="col-sm-10 col-offset-2">
 					<input class="form-control" type="text" name="nombre" id="nombre" style="text-transform:uppercase" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="giro">Giro</label>
-				<div class="col-sm-10 col-offset-2">
-					<input class="form-control" type="text" name="giro" id="giro" style="text-transform:uppercase" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="direccion">Dirección</label>
 				<div class="col-sm-10 col-offset-2">
 					<input class="form-control" type="text" name="direccion" id="direccion" style="text-transform:uppercase" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="region">Región</label>
-				<div class="col-sm-10 col-offset-2">
-					<select id="region" class="form-control" name="region">
-			  			<option value="" selected>- Seleccione Región -</option>
-			  			<option value="Arica y Parinacota">Arica y Parinacota</option>
-				  		<option value="Tarapaca">Tarapacá</option>
-				  		<option value="Antofagasta">Antofagasta</option>
-				  		<option value="Atacama">Atacama</option>
-				  		<option value="Coquimbo">Coquimbo</option>
-			  			<option value="Valparaiso">Valparaiso</option>
-			  			<option value="Metropolitana">Metropolitana</option>
-				  		<option value="Ohiggins">O'Higgins</option>
-				  		<option value="Maule">Maule</option>
-				  		<option value="Biobio">Biobío</option>
-				  		<option value="Araucania">Araucanía</option>
-					  	<option value="Los Rios">Los Ríos</option>
-				  		<option value="Los Lagos">Los Lagos</option>
-					  	<option value="Aysen">Aysen</option>
-					  	<option value="Magallanes">Magallanes</option>
-					</select>
 				</div>
 			</div>
 			<div class="form-group">

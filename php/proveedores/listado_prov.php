@@ -1,6 +1,6 @@
 <?php
 	include('../funciones/consultas.php')
-?>	
+?>
 <script type="text/javascript" src="js/jquery.quicksearch.js"></script>
 <script type="text/javascript" src="js/proveedor/listadoProv.js"></script>
 <div align="center" class="row">
@@ -19,7 +19,6 @@
 				<tr class="info">
 					<th width="20%">Nombre</th>
 					<th width="15%">Rut</th>
-					<th width="20%">Giro</th>
 					<th width="25%">Dirección</th>
 					<th width="20%">Editar</th>
 				</tr>

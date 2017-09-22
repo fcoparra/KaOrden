@@ -2,7 +2,7 @@
 	include('../funciones/consultas.php');
 	$id			= $_GET['id'];
 	$datos 		= modifica_proveedor($id);
-?>	
+?>
 <script type="text/javascript" src="js/proveedor/nuevo_prov.js"></script>
 <div align="center" class="row">
 	<h4>MODIFICACION DE PROVEEDOR</h4>
@@ -23,23 +23,9 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-2" for="giro">Giro</label>
-			<div class="col-sm-10 col-offset-2">
-				<input class="form-control" type="text" name="giro" id="giro" style="text-transform:uppercase" value="<?php echo $datos['giro'];?>" required>
-			</div>
-		</div>
-		<div class="form-group">
 			<label class="control-label col-sm-2" for="direccion">Dirección</label>
 			<div class="col-sm-10 col-offset-2">
 				<input class="form-control" type="text" name="direccion" id="direccion" style="text-transform:uppercase" value="<?php echo $datos['direccion'];?>" required>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-sm-2" for="region">Región</label>
-			<div class="col-sm-10 col-offset-2">
-				<select id="region" class="form-control" name="region">
-		  			<?php region_select($datos['region']); ?>
-				</select>
 			</div>
 		</div>
 		<div class="form-group">
