@@ -1,7 +1,7 @@
 <script type="text/javascript" src="js/proveedor/nuevo_prov.js"></script>
 <script type="text/javascript" src="js/proveedor/validarut.js"></script>
 <div align="center" class="row">
-	<h4>INGRESO DE PROVEEDORES</h4>
+	<h4>Orden de compra</h4>
 	<hr>
 </div>
 <div class="row" align="center">
