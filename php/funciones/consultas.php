@@ -10,7 +10,7 @@
   //LISTADO DE TODOS LOS PROVEEDORES
   function listado_prov(){
     $conexion   = new connex();
-    $seleccion  = "SELECT id, rut, nombre, giro, direccion FROM proveedor order by nombre;";
+    $seleccion  = "SELECT id, rut, nombre, direccion FROM proveedor order by nombre;";
     $consulta   = $conexion->query($seleccion);
     $lista = "";
     while($fila = $conexion->row($consulta))
