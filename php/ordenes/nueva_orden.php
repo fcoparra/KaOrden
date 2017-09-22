@@ -3,7 +3,7 @@
 <script type="text/javascript" src="js/proveedor/validarut.js"></script>
 <?php
 	include('../funciones/consultas.php');
-php?>
+?>
 <script type="text/javascript">
 	var valores = <?php carga_proveedores(1);?>
 	var valores1 = <?php carga_proveedores(2);?>
