@@ -61,7 +61,7 @@
                   <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-664156" href="#panel-element-102249">Collapsible Group Item #1</a>
                 </div>
                 <div id="panel-element-102249" class="panel-collapse collapse">
-                  <div class="panel-body"> Anim pariatur cliche... </div>
+                  <!-- listado de ordenes de compra -->
                 </div>
               </div>
               <div class="panel panel-default">
@@ -69,7 +69,7 @@
                   <a class="panel-title" data-toggle="collapse" data-parent="#panel-664156" href="#panel-element-168149">Collapsible Group Item #2</a>
                 </div>
                 <div id="panel-element-168149" class="panel-collapse collapse in">
-                  <div class="panel-body"> Anim pariatur cliche... </div>
+                  <!-- nueva orden de compra -->
                 </div>
               </div>
             </div>
