@@ -1,11 +1,21 @@
+<script type="text/javascript" src="js/autocomplete.min.js"></script>
 <script type="text/javascript" src="js/proveedor/nuevo_prov.js"></script>
 <script type="text/javascript" src="js/proveedor/validarut.js"></script>
+<?php
+	include('../funciones/consultas.php');
+php?>
+<script type="text/javascript">
+	var valores = <?php carga_proveedores(1);?>
+	var valores1 = <?php carga_proveedores(2);?>
+	$("#rut").autocomplete({hints: valores});
+	$("#nombre").autocomplete({hints: valores1});
+</script>
 <div align="center" class="row">
 	<h4>Orden de compra</h4>
 	<hr>
 </div>
 <div class="row" align="center">
-	<form action="#" id="nuevoP" class="form-horizontal" name="nuevoP" autocomplete="on">
+	<form action="#" id="nuevaO" class="form-horizontal" name="nuevaO" autocomplete="on">
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="rut">Rut Proveedor</label>
 			<div class="col-sm-10 col-offset-2">

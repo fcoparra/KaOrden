@@ -8,7 +8,7 @@ function respuesta(resp)
 	}
 	else{
 		alert("Proveeodr ingresado");
-		
+
 	}
 }
 
@@ -45,4 +45,6 @@ $(document).ready(function()
 	$(".btn-basic").click(function(){
 		$("#main").load("php/proveedores/listado_prov.php");
 	});
+
+
 });

@@ -269,4 +269,21 @@
   	//Consulto por los materiales solicitados en la solicitud
 
   }
+  //funcion para autocompletar los campos de los proveedores
+  function carga_proveedores($tipo){
+    $conexion   = new connex();
+    $seleccion  = "select rut, nombre from proveedor";
+    $consulta   = $conexion->query($seleccion);
+    $listado    = "[";
+    while ($fila = $conexion->row($consulta)){
+      if($tipo == 1){
+        $listado  .= "'".$fila['rut']."',";
+      }
+      else{
+        $listado  .= "'".$fila['nombre']."',";
+      }
+    }
+    $listado    .= "'']";
+    echo $listado;
+  }
 ?>
