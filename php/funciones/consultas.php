@@ -1,4 +1,4 @@
-<?php
+<?php 
   include('../conectar.php');
   //Recibe valores para la carga de datos
   if(isset($_GET['valor'])){
@@ -10,7 +10,7 @@
   //LISTADO DE TODOS LOS PROVEEDORES
   function listado_prov(){
     $conexion   = new connex();
-    $seleccion  = "SELECT id, rut, nombre, direccion FROM proveedor order by nombre;";
+    $seleccion  = "SELECT id, rut, nombre, giro, direccion FROM proveedor order by nombre;";
     $consulta   = $conexion->query($seleccion);
     $lista = "";
     while($fila = $conexion->row($consulta))
@@ -18,6 +18,7 @@
       $lista .= "<tr>";
       $lista .= "<td width='20%'>".$fila['nombre']."</td>";
       $lista .= "<td width='15%'>".$fila['rut']."</td>";
+      $lista .= "<td width='20%'>".$fila['giro']."</td>";
       $lista .= "<td width='25%'>".$fila['direccion']."</div></td>";
       $lista .= "<td width='20%'><button class= 'btn btn-primary' onclick='modificar(".$fila['id'].");'>Editar</button></td>";
     }
@@ -32,6 +33,84 @@
     $conexion->cerrar();
     $fila   = $conexion->row($respuesta);
     return $fila;
+  }
+  //CARGA DE REGIONES
+  function region_select($valor){
+    if($valor == 'Arica y Parinacota'){
+      echo '<option value="Arica y Parinacota" selected>Arica y Parinacota</option>';
+    }else{
+      echo '<option value="Arica y Parinacota">Arica y Parinacota</option>';      
+    }
+    if($valor == 'Tarapaca'){
+      echo '<option value="Tarapaca" selected>Tarapacá</option>';
+    }else{
+      echo '<option value="Tarapaca">Tarapacá</option>';
+    }
+    if($valor == 'Antofagasta'){
+      echo '<option value="Antofagasta" selected>Antofagasta</option>';
+    }else{
+      echo '<option value="Antofagasta">Antofagasta</option>';
+    }
+    if($valor == 'Atacama'){
+      echo '<option value="Atacama" selected>Atacama</option>';
+    }else{
+      '<option value="Atacama">Atacama</option>';
+    }
+    if($valor == 'Coquimbo'){
+      echo '<option value="Coquimbo" selected>Coquimbo</option>';
+    }else{
+      echo '<option value="Coquimbo">Coquimbo</option>';
+    }
+    if($valor == 'Valparaiso'){
+      echo '<option value="Valparaiso" selected>Valparaiso</option>';
+    }else{
+      echo '<option value="Valparaiso">Valparaiso</option>';
+    }
+    if($valor == 'Metropolitana'){
+      echo '<option value="Metropolitana" selected>Metropolitana</option>';
+    }else{
+      echo '<option value="Metropolitana">Metropolitana</option>';
+    }
+    if($valor == 'Ohiggins'){
+      echo '<option value="Ohiggins" selected>O\'Higgins</option>';
+    }else{
+      echo '<option value="Ohiggins">O\'Higgins</option>';
+    }
+    if($valor == 'Maule'){
+      echo '<option value="Maule" selected>Maule</option>';
+    }else{
+      echo '<option value="Maule">Maule</option>';
+    }
+    if($valor == 'Biobio'){
+      echo '<option value="Biobio" selected>Biobio</option>';
+    }else{
+      echo '<option value="Biobio">Biobio</option>';
+    }
+    if($valor == 'Araucania'){
+      echo '<option value="Araucania" selected>Araucania</option>';
+    }else{
+      echo '<option value="Araucania">Araucania</option>';
+    }
+    if($valor == 'Los Rios'){
+      echo '<option value="Los Rios" selected>Los Rios</option>';
+    }else{
+      echo '<option value="Los Rios">Los Rios</option>';
+    }
+    if($valor == 'Los Lagos'){
+      echo '<option value="Los Lagos" selected>Los Lagos</option>';
+    }else{
+      echo '<option value="Los Lagos">Los Lagos</option>';
+    }
+    if($valor == 'Aysen'){
+      echo '<option value="Aysen" selected>Aysen</option>';
+    }else{
+      echo '<option value="Aysen">Aysen</option>';
+    }
+    if($valor == 'Magallanes'){
+      echo '<option value="Magallanes" selected>Magallanes</option>';
+    }else{
+      echo '<option value="Magallanes">Magallanes</option>';
+    }
   }
 
   //ACCIONES DE CATEGORÍAS
@@ -169,6 +248,7 @@
     $consulta = $conexion->query($seleccion);
     $fila     = $conexion->row($consulta);
     $dato     = "<div class='form-group'><label>Nombre Prov: <span>".$fila['nombre']."</span></label>";
+    $dato     .= "<label>Giro: <span>".$fila['giro']."</span></label><br>";
     $dato     .= "<label>Dirección: <span>".$fila['direccion']."</span></label><br>";
     $dato     .= "<label>Teléfono: <span>".$fila['telefono']."</span></label><br>";
     $conexion->cerrar();
@@ -267,23 +347,6 @@
   function consulta_estado_dev($id_dev){
   	$conexion = new connex();
   	//Consulto por los materiales solicitados en la solicitud
-
-  }
-  //funcion para autocompletar los campos de los proveedores
-  function carga_proveedores($tipo){
-    $conexion   = new connex();
-    $seleccion  = "select rut, nombre from proveedor";
-    $consulta   = $conexion->query($seleccion);
-    $listado    = "[";
-    while ($fila = $conexion->row($consulta)){
-      if($tipo == 1){
-        $listado  .= "'".$fila['rut']."',";
-      }
-      else{
-        $listado  .= "'".$fila['nombre']."',";
-      }
-    }
-    $listado    .= "'']";
-    echo $listado;
+  	
   }
 ?>
