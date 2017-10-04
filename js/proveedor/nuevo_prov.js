@@ -8,7 +8,7 @@ function respuesta(resp)
 	}
 	else{
 		alert("Proveeodr ingresado");
-		
+		$("#main").load("php/proveedores/listado_prov.php");
 	}
 }
 

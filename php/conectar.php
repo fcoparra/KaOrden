@@ -17,7 +17,7 @@ class connex
 
 	public function conectar() 
     	{ 
-        $this->conex = new mysqli($this->servidor, $this->user, $this->clave, $this->db);
+        //$this->conex = new mysqli($this->servidor, $this->user, $this->clave, $this->db);
         return $this->conex; 
     	} 
      
