@@ -1,4 +1,4 @@
-<?php 
+<?php
   include('../conectar.php');
   //Recibe valores para la carga de datos
   if(isset($_GET['valor'])){
@@ -7,10 +7,22 @@
   if(isset($_GET['serial'])){
     carga_producto($_GET['serial']);
   }
+  if(isset($_GET['texto'])){
+    buscar_prov($_GET['texto']);
+  }
+  if(isset($_GET['datosP'])){
+      datos_proveedor($_GET['datosP']);
+  }
+  if(isset($_GET['texto_prod'])){
+    buscar_prod($_GET['texto_prod']);
+  }
+  if(isset($_GET['datoProd'])){
+      datos_producto($_GET['datoProd']);
+  }
   //LISTADO DE TODOS LOS PROVEEDORES
   function listado_prov(){
     $conexion   = new connex();
-    $seleccion  = "SELECT id, rut, nombre, giro, direccion FROM proveedor order by nombre;";
+    $seleccion  = "SELECT id, rut, nombre, direccion, telefono FROM proveedor order by nombre;";
     $consulta   = $conexion->query($seleccion);
     $lista = "";
     while($fila = $conexion->row($consulta))
@@ -18,8 +30,8 @@
       $lista .= "<tr>";
       $lista .= "<td width='20%'>".$fila['nombre']."</td>";
       $lista .= "<td width='15%'>".$fila['rut']."</td>";
-      $lista .= "<td width='20%'>".$fila['giro']."</td>";
       $lista .= "<td width='25%'>".$fila['direccion']."</div></td>";
+      $lista .= "<td width='20%'>".$fila['telefono']."</td>";
       $lista .= "<td width='20%'><button class= 'btn btn-primary' onclick='modificar(".$fila['id'].");'>Editar</button></td>";
     }
     $conexion->cerrar();
@@ -33,84 +45,6 @@
     $conexion->cerrar();
     $fila   = $conexion->row($respuesta);
     return $fila;
-  }
-  //CARGA DE REGIONES
-  function region_select($valor){
-    if($valor == 'Arica y Parinacota'){
-      echo '<option value="Arica y Parinacota" selected>Arica y Parinacota</option>';
-    }else{
-      echo '<option value="Arica y Parinacota">Arica y Parinacota</option>';      
-    }
-    if($valor == 'Tarapaca'){
-      echo '<option value="Tarapaca" selected>Tarapacá</option>';
-    }else{
-      echo '<option value="Tarapaca">Tarapacá</option>';
-    }
-    if($valor == 'Antofagasta'){
-      echo '<option value="Antofagasta" selected>Antofagasta</option>';
-    }else{
-      echo '<option value="Antofagasta">Antofagasta</option>';
-    }
-    if($valor == 'Atacama'){
-      echo '<option value="Atacama" selected>Atacama</option>';
-    }else{
-      '<option value="Atacama">Atacama</option>';
-    }
-    if($valor == 'Coquimbo'){
-      echo '<option value="Coquimbo" selected>Coquimbo</option>';
-    }else{
-      echo '<option value="Coquimbo">Coquimbo</option>';
-    }
-    if($valor == 'Valparaiso'){
-      echo '<option value="Valparaiso" selected>Valparaiso</option>';
-    }else{
-      echo '<option value="Valparaiso">Valparaiso</option>';
-    }
-    if($valor == 'Metropolitana'){
-      echo '<option value="Metropolitana" selected>Metropolitana</option>';
-    }else{
-      echo '<option value="Metropolitana">Metropolitana</option>';
-    }
-    if($valor == 'Ohiggins'){
-      echo '<option value="Ohiggins" selected>O\'Higgins</option>';
-    }else{
-      echo '<option value="Ohiggins">O\'Higgins</option>';
-    }
-    if($valor == 'Maule'){
-      echo '<option value="Maule" selected>Maule</option>';
-    }else{
-      echo '<option value="Maule">Maule</option>';
-    }
-    if($valor == 'Biobio'){
-      echo '<option value="Biobio" selected>Biobio</option>';
-    }else{
-      echo '<option value="Biobio">Biobio</option>';
-    }
-    if($valor == 'Araucania'){
-      echo '<option value="Araucania" selected>Araucania</option>';
-    }else{
-      echo '<option value="Araucania">Araucania</option>';
-    }
-    if($valor == 'Los Rios'){
-      echo '<option value="Los Rios" selected>Los Rios</option>';
-    }else{
-      echo '<option value="Los Rios">Los Rios</option>';
-    }
-    if($valor == 'Los Lagos'){
-      echo '<option value="Los Lagos" selected>Los Lagos</option>';
-    }else{
-      echo '<option value="Los Lagos">Los Lagos</option>';
-    }
-    if($valor == 'Aysen'){
-      echo '<option value="Aysen" selected>Aysen</option>';
-    }else{
-      echo '<option value="Aysen">Aysen</option>';
-    }
-    if($valor == 'Magallanes'){
-      echo '<option value="Magallanes" selected>Magallanes</option>';
-    }else{
-      echo '<option value="Magallanes">Magallanes</option>';
-    }
   }
 
   //ACCIONES DE CATEGORÍAS
@@ -248,7 +182,6 @@
     $consulta = $conexion->query($seleccion);
     $fila     = $conexion->row($consulta);
     $dato     = "<div class='form-group'><label>Nombre Prov: <span>".$fila['nombre']."</span></label>";
-    $dato     .= "<label>Giro: <span>".$fila['giro']."</span></label><br>";
     $dato     .= "<label>Dirección: <span>".$fila['direccion']."</span></label><br>";
     $dato     .= "<label>Teléfono: <span>".$fila['telefono']."</span></label><br>";
     $conexion->cerrar();
@@ -347,6 +280,61 @@
   function consulta_estado_dev($id_dev){
   	$conexion = new connex();
   	//Consulto por los materiales solicitados en la solicitud
-  	
+
+  }
+  //para busqueda de proveedor y carga de datos en el ingreso de una orden de compra
+  function buscar_prov($texto){
+    $conexion   = new connex();
+    $seleccion  = "select * from proveedor Where nombre LIKE '%".$texto."%'";
+    $consulta   = $conexion->query($seleccion);
+    while($fila = $conexion->row($consulta))
+    {
+      $detalle[] = $fila['nombre'];
+    }
+    $conexion->cerrar();
+    echo json_encode($detalle);
+  }
+  function datos_proveedor($dato){
+    $conexion   = new connex();
+    $seleccion  = "select * from proveedor Where nombre = '".$dato."'";
+    $consulta   = $conexion->query($seleccion);
+    $detalle    = "<table class='table'>";
+    while($fila = $conexion->row($consulta))
+    {
+      $detalle .= '<tr><td><label class="control-label" for="rut">Rut</label></td><td>'.$fila['rut'].'</td></tr>';
+      $detalle .= '<tr><td><label class="control-label" for="dir">Direccion</label></td><td>'.$fila['direccion'].'</td></tr>';
+      $detalle .= '<tr><td><label class="control-label" for="fono">Telefono</label></td><td>'.$fila['telefono'].'</td></tr>';
+      $detalle .= '<input type="hidden" name="id_prov[]" id="id_prov" value="'.$fila['id'].'">';
+    }
+    $detalle .= "</table>";
+    $conexion->cerrar();
+    echo $detalle;
+  }
+
+  //Funciones para la búsqueda de productos en ordenes de COMPRA
+
+  function buscar_prod($texto){
+    $conexion   = new connex();
+    $seleccion  = "select nombre from producto where nombre LIKE '%".$texto."%'";
+    $consulta   = $conexion->query($seleccion);
+    while($fila = $conexion->row($consulta))
+    {
+      $detalle[] = $fila['nombre'];
+    }
+    $conexion->cerrar();
+    echo json_encode($detalle);
+  }
+  //carga el id del producto
+  function datos_producto($dato){
+    $conexion   = new connex();
+    $seleccion  = "select idproducto from producto Where nombre = '".$dato."'";
+//    echo $seleccion;
+    $consulta   = $conexion->query($seleccion);
+    while($fila = $conexion->row($consulta))
+    {
+      $detalle = '<input type="hidden" name="id_prod" id="id_prod" value="'.$fila['idproducto'].'">';
+    }
+    $conexion->cerrar();
+    echo $detalle;
   }
 ?>

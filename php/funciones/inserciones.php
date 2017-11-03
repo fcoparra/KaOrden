@@ -1,4 +1,4 @@
-<?php 
+<?php
   include('../conectar.php');
   if(isset($_GET['valor'])){
     switch ($_GET['valor']) {
@@ -42,9 +42,13 @@
         # code...
         insert_salida();
         break;
-      case '10':
+      case '11':
         # code...
         insert_devolucion();
+        break;
+      case '12':
+        # code...
+        insert_orden();
         break;
       default:
         # code...
@@ -56,9 +60,7 @@
   function insert_prov(){
     $rut        = $_GET["rut"];
     $nombre     = $_GET["nombre"];
-    $giro       = $_GET["giro"];
     $direccion  = $_GET["direccion"];
-    $region     = $_GET["region"];
     $provincia  = $_GET["ciudad"];
     $telefono   = $_GET["telefono"];
     $conexion   = new connex();
@@ -77,8 +79,8 @@
     }
     else
     {
-      $consu2="INSERT INTO proveedor (rut,nombre,giro,direccion,region,ciudad,telefono)VALUES ('".$rut."','".$nombre."','".$giro."','".$direccion."','".$region."','".$provincia."','".$telefono."');";
-      $consulta3  = $conexion->query($consu2); 
+      $consu2="INSERT INTO proveedor (rut,nombre,direccion,ciudad,telefono)VALUES ('".$rut."','".$nombre."','".$direccion."','".$provincia."','".$telefono."');";
+      $consulta3  = $conexion->query($consu2);
       $conexion->cerrar();
       //echo $consu2;
       echo 2;
@@ -88,15 +90,13 @@
   function modif_prov(){
     $rut        = $_GET["rut"];
     $nombre     = $_GET["nombre"];
-    $giro       = $_GET["giro"];
     $direccion  = $_GET["direccion"];
-    $region     = $_GET["region"];
     $provincia  = $_GET["ciudad"];
     $telefono   = $_GET["telefono"];
     $conexion   = new connex();
-      
-    $consu2="UPDATE proveedor SET nombre = '".$nombre."', giro = '".$giro."', direccion = '".$direccion."', region = '".$region."', ciudad = '".$provincia."', telefono = '".$telefono."' WHERE rut = '".$rut."'";
-      $consulta3  = $conexion->query($consu2); 
+
+    $consu2="UPDATE proveedor SET nombre = '".$nombre."', direccion = '".$direccion."', ciudad = '".$provincia."', telefono = '".$telefono."' WHERE rut = '".$rut."'";
+      $consulta3  = $conexion->query($consu2);
       $conexion->cerrar();
       //echo $consu2;
       echo 2;
@@ -114,7 +114,7 @@
     $bodega   = $_GET['bod'];
     $conexion = new connex();
     $consu2="INSERT INTO producto(codigo,nombre,descripcion,categoria_idcategoria,unidad,critico,bodega_idbodega,marca) VALUES ('".$serial."','".$nombre."','".$descrip."','".$cat."','".$unid."',".$critico.",".$bodega.",'".$marca."');";
-    $consulta3  = $conexion->query($consu2); 
+    $consulta3  = $conexion->query($consu2);
     $conexion->cerrar();
     //echo $consu2;
     echo 2;
@@ -131,9 +131,9 @@
     $critico  = $_GET['critico'];
     $bodega   = $_GET['bod'];
     $conexion   = new connex();
-      
+
     $consu2="UPDATE producto SET codigo = '".$serial."', nombre = '".$nombre."', descripcion = '".$descrip."', categoria_idcategoria = '".$cat."', unidad = '".$unid."', critico = ".$critico.", bodega_idbodega = ".$bodega.", marca = '".$marca."' WHERE idproducto = ".$id.";";
-      $consulta3  = $conexion->query($consu2); 
+      $consulta3  = $conexion->query($consu2);
       $conexion->cerrar();
       //echo $consu2;
       echo 2;
@@ -143,7 +143,7 @@
     $nombre   = $_GET["nombre"];
     $conexion = new connex();
     $consu2="INSERT INTO categoria(nombre) VALUES ('".$nombre."');";
-    $consulta3  = $conexion->query($consu2); 
+    $consulta3  = $conexion->query($consu2);
     $conexion->cerrar();
     //echo $consu2;
     echo 2;
@@ -153,10 +153,10 @@
     $id         = $_GET['id'];
     $nombre     = $_GET["nombre"];
     $conexion   = new connex();
-      
+
     $consu2="UPDATE categoria SET nombre = '".$nombre."' WHERE idcategoria = '".$id."'";
       $consulta3  = $conexion->query($consu2);
-      $conexion->cerrar(); 
+      $conexion->cerrar();
       //echo $consu2;
       echo 2;
   }
@@ -167,7 +167,7 @@
     $descrip  = $_GET["descrip"];
     $conexion = new connex();
     $consu2="INSERT INTO bodega(nombre,descripcion) VALUES ('".$nombre."','".$descrip."');";
-    $consulta3  = $conexion->query($consu2); 
+    $consulta3  = $conexion->query($consu2);
     $conexion->cerrar();
     //echo $consu2;
     echo 2;
@@ -178,9 +178,9 @@
     $nombre     = $_GET["nombre"];
     $descrip     = $_GET["descrip"];
     $conexion   = new connex();
-      
+
     $consu2="UPDATE bodega SET nombre = '".$nombre."', descripcion = '".$descrip."' WHERE idbodega = '".$id."'";
-      $consulta3  = $conexion->query($consu2); 
+      $consulta3  = $conexion->query($consu2);
       $conexion->cerrar();
       //echo $consu2;
       echo 2;
@@ -224,26 +224,27 @@
     $conexion->cerrar();
     echo $id_solicitud;
   }
-
-  function insert_salida(){
+  function insert_orden(){
     $fecha      = date('Y-m-d H:m:s');
-    $usuario    = $_GET['usuario'];
-    $responsable= $_GET['devuelto'];
-    $solicitud  = $_GET['solicitud'];
+    $proveedor  = $_GET['ip_prov'];
+    $subtotal   = $_GET['subtotal'];
+    $total      = $_GET['total_orden'];
+    $iva        = $_GET['iva'];
     $comentario = $_GET['comentarios'];
-    $consulta   = "INSERT INTO devolucion (responsable, fecha, comentario, usuario, solicitud_idsolicitud) VALUES ('$responsable','$fecha','$comentario','$usuario','$solicitud')";
+    $fecha      = date('d-m-Y');
+    $consulta   = "INSERT INTO orden (fecha, subtotal, iva, total, comentarios, proveedor_id) VALUES ('$fecha','$subtotal','$iva','$total','$comentario','$proveedor')";
     $conexion   = new connex();
     $resultado  = $conexion->query($consulta);
-    $id_solicitud = $conexion->insercion();
+    $id_orden = $conexion->insercion();
     $cantidad   = $_GET['cantidad'];
     $producto   = $_GET['producto'];
+    $vunitario  = $_GET['vunitario'];
+    $vtotal     = $_GET['vtotal'];
     for($i=0; $i< count($cantidad); $i++){
-      if($cantidad[$i] != ''){
-        $consulta2  = "INSERT INTO detalle_devolución (cantidad, devolucion_iddevolucion, producto_idproducto) VALUES (".$cantidad[$i].",".$id_solicitud.",".$producto[$i].")";
-        $respuesta = $conexion->query($consulta2);
-      }
+      $consulta2  = "INSERT INTO detalle_orden (cantidad, valor_unitario, valor_total, orden_idorden, producto_idproducto) VALUES (".$cantidad[$i].",".$vunitario[$i].",".$vtotal[$i].",".$id_orden.",".$producto[$i].")";
+      $respuesta = $conexion->query($consulta2);
     }
     $conexion->cerrar();
-    echo $id_solicitud;
+    echo $id_orden;
   }
 ?>
