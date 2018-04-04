@@ -226,16 +226,17 @@
   }
   function insert_orden(){
     $fecha      = date('Y-m-d H:m:s');
-    $proveedor  = $_GET['ip_prov'];
+    $proveedor  = $_GET['id_prov'];
     $subtotal   = $_GET['subtotal'];
     $total      = $_GET['total_orden'];
     $iva        = $_GET['iva'];
     $comentario = $_GET['comentarios'];
-    $fecha      = date('d-m-Y');
-    $consulta   = "INSERT INTO orden (fecha, subtotal, iva, total, comentarios, proveedor_id) VALUES ('$fecha','$subtotal','$iva','$total','$comentario','$proveedor')";
+    $fecha      = date('Y-m-d');
+    $consulta   = "INSERT INTO orden(fecha, subtotal, iva, total, comentarios, proveedor_id) VALUES ('$fecha','$subtotal','$iva','$total','$comentario','$proveedor')";
+    echo $consulta;
     $conexion   = new connex();
     $resultado  = $conexion->query($consulta);
-    $id_orden = $conexion->insercion();
+    $id_orden   = $conexion->insercion();
     $cantidad   = $_GET['cantidad'];
     $producto   = $_GET['producto'];
     $vunitario  = $_GET['vunitario'];

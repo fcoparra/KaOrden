@@ -304,7 +304,7 @@
       $detalle .= '<tr><td><label class="control-label" for="rut">Rut</label></td><td>'.$fila['rut'].'</td></tr>';
       $detalle .= '<tr><td><label class="control-label" for="dir">Direccion</label></td><td>'.$fila['direccion'].'</td></tr>';
       $detalle .= '<tr><td><label class="control-label" for="fono">Telefono</label></td><td>'.$fila['telefono'].'</td></tr>';
-      $detalle .= '<input type="hidden" name="id_prov[]" id="id_prov" value="'.$fila['id'].'">';
+      $detalle .= '<input type="hidden" name="id_prov" id="id_prov" value="'.$fila['id'].'">';
     }
     $detalle .= "</table>";
     $conexion->cerrar();
@@ -336,5 +336,66 @@
     }
     $conexion->cerrar();
     echo $detalle;
+  }
+
+  //funcion para el listado de ordenes de compra
+
+  function listado_orden(){
+    $conexion   = new connex();
+    $seleccion  = "SELECT * from ordenes order by fecha DESC;";
+    $consulta   = $conexion->query($seleccion);
+    $lista = "";
+    while($fila = $conexion->row($consulta))
+    {
+      $fecha      = explode(" ", $fila['fecha']);
+      $fecha2     = explode("-",$fecha[0]);
+      $fechaF     = $fecha2[2]."-".$fecha2[1]."-".$fecha2[0];
+      $lista .= "<tr>";
+      $lista .= "<td width='20%'>".$fila['orden']."</td>";
+      $lista .= "<td width='15%'>".$fechaF."</td>";
+      $lista .= "<td width='25%'>".$fila['nombre']."</div></td>";
+      $lista .= "<td width='20%'><button class= 'btn btn-primary' onclick='ver(".$fila['orden'].");'>Ver</button></td>";
+    }
+    $conexion->cerrar();
+    echo $lista;
+  }
+
+  //funciones para la impresión de una orden de compra
+
+  function header_orden($id){
+    $conexion   = new connex();
+    $consulta   = "SELECT orden.fecha, proveedor.nombre, proveedor.rut, proveedor.direccion, proveedor.ciudad from orden, proveedor WHERE idorden = ".$id." and proveedor.id = proveedor_id";
+    //echo $consulta;
+    $resultado  = $conexion->query($consulta);
+    while($fila = $conexion->row($resultado))
+    {
+      $fecha      = explode(" ", $fila['fecha']);
+      $fecha2     = explode("-",$fecha[0]);
+      $fechaF     = $fecha2[2]."-".$fecha2[1]."-".$fecha2[0];
+      $tabla    = '<table class="table"><thead><tr><th>Datos Proveedor</th></tr></thead><tbody><tr><td>Señores:</td><td>'.$fila['nombre'].'</td></tr><tr><td>Rut:</td><td>'.$fila['rut'].'</td></tr><tr><td>Dirección:</td><td>'.$fila['direccion'].' - '.$fila['ciudad'].'</td></tr><tr><td>Fecha:</td><td>'.$fechaF.'</td></tr></tbody></table>';
+    }
+    $conexion->cerrar();
+    echo $tabla;
+  }
+  function body_orden($id){
+    $conexion   = new connex();
+    $seleccion  = "SELECT producto.nombre, producto.unidad, detalle_orden.cantidad, detalle_orden.valor_unitario, detalle_orden.valor_total from detalle_orden, producto WHERE detalle_orden.orden_idorden = ".$id." and producto_idproducto = idproducto";
+//    echo $seleccion;
+    $resultado  = $conexion->query($seleccion);
+    $tabla = "";
+    while($fila = $conexion->row($resultado)){
+      $tabla  .= "<tr><td>".$fila['cantidad']."</td><td>".$fila['unidad']."</td><td>".$fila['nombre']."</td><td>".$fila['valor_unitario']."</td><td>".$fila['valor_total']."</td></tr>";
+    }
+    $conexion->cerrar();
+    echo $tabla;
+  }
+  function footer_orden($id){
+    $conexion   = new connex();
+    $seleccion  = "SELECT comentarios,subtotal,iva,total FROM orden WHERE idorden = ".$id;
+    $consulta   = $conexion->query($seleccion);
+    $fila       = $conexion->row($consulta);
+    $footer     = '<table width="100%"><tr><td width="50%"><b>Comentarios:</b><br>'.$fila['comentarios'].'</td><td  width="50%"><table class="table"><tr><td>Total Neto</td><td>'.$fila['subtotal'].'</td></tr><tr><td>I.V.A.</td><td>'.$fila['iva'].'</td></tr><tr><td>Total</td><td>'.$fila['total'].'</td></tr></table></td></table>';
+    $conexion->cerrar();
+    echo $footer;
   }
 ?>

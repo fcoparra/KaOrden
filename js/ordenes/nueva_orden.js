@@ -18,7 +18,8 @@ function carga_producto(resp){
 //Respuesta del ingreso de una nueva orden de compra realizada
 //acá debe cargar la orden de compra para ser impresa
 function respuesta(resp){
-  alert(resp);
+  alert("Orden Ingresada");
+  var ventana = open("php/ordenes/detalle.php?id="+alert,"PDF",'width=800,height=600,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,titlebar=no');
 }
 
 //Eliminar una fila
@@ -87,7 +88,7 @@ $(document).ready(function(){
     //alert(subtotal+' '+iva+' '+totalO);
   });
 
-  $("#guardar").submit(function(event)
+  $("#orden").submit(function(event)
 	{
 		event.preventDefault();
 		$.get("php/funciones/inserciones.php",$(this).serialize(),respuesta);

@@ -35,7 +35,7 @@
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
               <li><a class="ir_a" href="php/ordenes/nueva_orden.php">Ingreso de órdenes de compra</a></li>
-              <li><a  href="#">Listado de órdenes de compra</a></li>
+              <li><a  class="ir_a" href="php/ordenes/listado_orden.php">Listado de órdenes de compra</a></li>
           </ul>
         </li>
   			<li class="dropdown">

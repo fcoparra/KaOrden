@@ -9,6 +9,9 @@ function validado(resp){
 		case "3":
 			$("#alert").css('display','block');
 			break;
+		default:
+			alert(resp);
+			break;
 	}
 }
 $(document).ready(function(){

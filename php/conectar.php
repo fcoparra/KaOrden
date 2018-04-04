@@ -10,14 +10,14 @@ class connex
    	function __construct() 
    	{     
 		    $this->user = 'root'; 
-       	$this->clave = ''; 
+       	$this->clave = 'root'; 
        	$this->servidor = 'localhost'; 
        	$this->conex = new mysqli($this->servidor, $this->user, $this->clave,'inventario'); 
    	}
 
 	public function conectar() 
     	{ 
-        //$this->conex = new mysqli($this->servidor, $this->user, $this->clave, $this->db);
+//        $this->conex = new mysqli($this->servidor, $this->user, $this->clave, $this->db);
         return $this->conex; 
     	} 
      

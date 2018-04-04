@@ -10,7 +10,7 @@
 	<hr>
 </div>
 <div class="row col-sm-8 col-sm-offset-2" align="left">
-	<form action="#" id="salida" class="form-horizontal" name="salida" autocomplete="on">
+	<form action="#" id="orden" class="form-horizontal" name="orden" autocomplete="on">
 		<div class="form-group">
 			<label class="control-label" for="fecha">Fecha</label>
 			<?php echo date('d-m-Y');?>

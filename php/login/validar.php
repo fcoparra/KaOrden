@@ -11,7 +11,6 @@
 		$user = $_REQUEST['u'];
 		$pass = md5($_REQUEST['p']);
 		$logueo=0;	
-		
 		include('../conectar.php');
 		$conexion = new connex();
 		$conexion->conectar();
